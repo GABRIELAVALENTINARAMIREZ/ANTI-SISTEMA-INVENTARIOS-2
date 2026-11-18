@@ -1,0 +1,6 @@
+{
+  "name": "GAMA — Sistema de Gestión de Inventarios",
+  "description": "Plataforma administrativa profesional para el control de inventario, recetas, lotes, proveedores y movimientos de un restaurante de comidas rápidas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
