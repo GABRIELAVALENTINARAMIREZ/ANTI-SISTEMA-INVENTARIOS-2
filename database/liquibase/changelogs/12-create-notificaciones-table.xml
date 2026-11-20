@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="12-create-notificaciones-table" author="gvalen">
+        <createTable tableName="notificaciones">
+            <column name="id_notificacion" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="titulo" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="mensaje" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="severidad" type="VARCHAR(20)" defaultValue="info">
+                <constraints nullable="false"/>
+            </column>
+            <column name="leida" type="BOOLEAN" defaultValueBoolean="false"/>
+            <column name="creada_en" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

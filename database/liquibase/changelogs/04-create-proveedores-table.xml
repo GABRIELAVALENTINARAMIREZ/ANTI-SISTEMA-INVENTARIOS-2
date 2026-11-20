@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="04-create-proveedores-table" author="gvalen">
+        <createTable tableName="proveedores">
+            <column name="id_proveedor" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nombre" type="VARCHAR(150)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nit" type="VARCHAR(30)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="telefono" type="VARCHAR(30)"/>
+            <column name="correo" type="VARCHAR(120)"/>
+            <column name="direccion" type="VARCHAR(200)"/>
+            <column name="productos_suministrados" type="TEXT"/>
+            <column name="estado" type="VARCHAR(20)" defaultValue="Activo"/>
+            <column name="creado_en" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

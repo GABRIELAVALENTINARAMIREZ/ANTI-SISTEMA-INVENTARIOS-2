@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="10-create-detalle-recetas-table" author="gvalen">
+        <createTable tableName="detalle_recetas">
+            <column name="id_detalle_receta" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="id_receta" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_drec_rec" references="recetas(id_receta)"/>
+            </column>
+            <column name="id_producto" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_drec_prod" references="productos(id_producto)"/>
+            </column>
+            <column name="cantidad" type="DECIMAL(10,2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

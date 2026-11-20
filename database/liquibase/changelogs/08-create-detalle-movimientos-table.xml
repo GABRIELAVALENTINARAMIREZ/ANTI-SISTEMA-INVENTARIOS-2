@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="08-create-detalle-movimientos-table" author="gvalen">
+        <createTable tableName="detalle_movimientos">
+            <column name="id_detalle" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="id_movimiento" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_det_mov" references="movimientos(id_movimiento)"/>
+            </column>
+            <column name="id_producto" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_det_prod" references="productos(id_producto)"/>
+            </column>
+            <column name="cantidad" type="DECIMAL(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="costo_unitario" type="DECIMAL(12,2)" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

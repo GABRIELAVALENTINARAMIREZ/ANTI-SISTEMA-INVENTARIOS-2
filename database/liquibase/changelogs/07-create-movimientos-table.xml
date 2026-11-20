@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="07-create-movimientos-table" author="gvalen">
+        <createTable tableName="movimientos">
+            <column name="id_movimiento" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="tipo" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="subtipo" type="VARCHAR(60)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id_proveedor" type="INT">
+                <constraints foreignKeyName="fk_mov_prov" references="proveedores(id_proveedor)"/>
+            </column>
+            <column name="id_usuario" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_mov_user" references="usuarios(id_usuario)"/>
+            </column>
+            <column name="observacion" type="TEXT"/>
+            <column name="total_cop" type="DECIMAL(14,2)" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fecha" type="DATETIME" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+        <createIndex tableName="movimientos" indexName="idx_mov_tipo">
+            <column name="tipo"/>
+        </createIndex>
+        <createIndex tableName="movimientos" indexName="idx_mov_fecha">
+            <column name="fecha"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

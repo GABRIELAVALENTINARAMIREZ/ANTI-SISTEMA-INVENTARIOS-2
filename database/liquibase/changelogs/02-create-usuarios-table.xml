@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="02-create-usuarios-table" author="gvalen">
+        <createTable tableName="usuarios">
+            <column name="id_usuario" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="id_rol" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_usuario_rol" references="roles(id_rol)"/>
+            </column>
+            <column name="nombre" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="usuario" type="VARCHAR(60)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="correo" type="VARCHAR(120)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password_hash" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="avatar" type="VARCHAR(255)"/>
+            <column name="estado" type="VARCHAR(20)" defaultValue="Activo">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ultimo_acceso" type="DATETIME"/>
+            <column name="creado_en" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+        <createIndex tableName="usuarios" indexName="idx_usuarios_rol">
+            <column name="id_rol"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

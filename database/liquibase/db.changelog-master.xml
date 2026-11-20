@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- Changelog Maestro del Sistema de Inventarios GAMA (FastStock) -->
+    <include file="changelogs/01-create-roles-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelogs/02-create-usuarios-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelogs/03-create-categorias-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelogs/04-create-proveedores-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelogs/05-create-ubicaciones-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelogs/06-create-productos-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelogs/07-create-movimientos-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelogs/08-create-detalle-movimientos-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelogs/09-create-recetas-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelogs/10-create-detalle-recetas-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelogs/11-create-lotes-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelogs/12-create-notificaciones-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelogs/13-create-auditoria-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelogs/14-initial-seed-data.xml" relativeToChangelogFile="true"/>
+
+</databaseChangeLog>

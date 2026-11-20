@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="13-create-auditoria-table" author="gvalen">
+        <createTable tableName="auditoria">
+            <column name="id_auditoria" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="id_usuario" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_aud_user" references="usuarios(id_usuario)"/>
+            </column>
+            <column name="accion" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modulo" type="VARCHAR(60)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="detalle" type="TEXT"/>
+            <column name="fecha" type="DATETIME" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+        <createIndex tableName="auditoria" indexName="idx_aud_usuario">
+            <column name="id_usuario"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

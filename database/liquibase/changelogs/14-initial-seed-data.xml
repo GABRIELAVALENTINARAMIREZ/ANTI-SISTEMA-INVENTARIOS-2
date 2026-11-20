@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="14-initial-seed-data" author="gvalen">
+        <!-- Roles iniciales -->
+        <insert tableName="roles">
+            <column name="id_rol" valueNumeric="1"/>
+            <column name="nombre" value="Administrador"/>
+            <column name="descripcion" value="Control total del sistema y configuración"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="id_rol" valueNumeric="2"/>
+            <column name="nombre" value="Encargado de inventario"/>
+            <column name="descripcion" value="Gestión de entradas, salidas, mermas y lotes"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="id_rol" valueNumeric="3"/>
+            <column name="nombre" value="Empleado"/>
+            <column name="descripcion" value="Consulta de recetas y registro de consumo operativo"/>
+        </insert>
+
+        <!-- Categorías iniciales -->
+        <insert tableName="categorias">
+            <column name="id_categoria" valueNumeric="1"/>
+            <column name="nombre" value="Carnes y proteínas"/>
+            <column name="descripcion" value="Cortes molidos, salchichas tipo americana y alitas marinadas"/>
+            <column name="icono" value="bi-fire"/>
+            <column name="color" value="#E63946"/>
+        </insert>
+        <insert tableName="categorias">
+            <column name="id_categoria" valueNumeric="2"/>
+            <column name="nombre" value="Panes"/>
+            <column name="descripcion" value="Panes brioche, panes de perro caliente y masas artesanales"/>
+            <column name="icono" value="bi-egg-fried"/>
+            <column name="color" value="#FF6B35"/>
+        </insert>
+        <insert tableName="categorias">
+            <column name="id_categoria" valueNumeric="3"/>
+            <column name="nombre" value="Verduras"/>
+            <column name="descripcion" value="Vegetales frescos diarios"/>
+            <column name="icono" value="bi-tree"/>
+            <column name="color" value="#16A34A"/>
+        </insert>
+
+        <!-- Ubicaciones iniciales -->
+        <insert tableName="ubicaciones">
+            <column name="id_ubicacion" valueNumeric="1"/>
+            <column name="nombre" value="Estantería A-1 (Panes)"/>
+            <column name="tipo" value="Ambiente"/>
+        </insert>
+        <insert tableName="ubicaciones">
+            <column name="id_ubicacion" valueNumeric="2"/>
+            <column name="nombre" value="Cámara Fría 1 (Carnes)"/>
+            <column name="tipo" value="Refrigerado"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
