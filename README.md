@@ -69,6 +69,32 @@ Abre en tu navegador: [http://localhost:8000](http://localhost:8000).
 
 ---
 
+## 🔒 Seguridad de la Base de Datos y Principio de Mínimo Privilegio
+
+Para proteger la base de datos MySQL en producción y desarrollo:
+- Las credenciales nunca se almacenan en código fuente (gestionadas vía `.env`).
+- Se provee el script [`database/security/setup_db_user_least_privilege.sql`](file:///c:/Sistema%20Dee%20Inventario/SISTEMA-INVENTARIOS/ANTI-SISTEMA-INVENTARIOS-2/database/security/setup_db_user_least_privilege.sql) para crear el usuario `app_inventario` limitado a operaciones DML (`SELECT`, `INSERT`, `UPDATE`, `DELETE`), evitando que la aplicación tenga permisos destructivos `DROP` o `ALTER`.
+- Todas las consultas están blindadas contra **Inyección SQL** mediante el ORM Eloquent y Query Builder parametrizado.
+- Contraseñas almacenadas con algoritmo **Bcrypt** y tokens de API almacenados con hash **SHA-256**.
+
+---
+
+## 🌐 API RESTful v1 y Autenticación Bearer
+
+El sistema expone una API completa bajo el prefijo `/api/v1` con autenticación por tokens y control de acceso basado en roles (RBAC: `Administrador`, `Encargado de inventario`, `Empleado`):
+
+- **Login**: `POST /api/v1/auth/login` (emite token Bearer válido por 8 horas).
+- **CRUD Productos**: `GET/POST /api/v1/productos`, `GET/PUT/DELETE /api/v1/productos/{id}`.
+- **CRUD Categorías**: `GET/POST /api/v1/categorias`, `GET/PUT/DELETE /api/v1/categorias/{id}`.
+- **CRUD Proveedores**: `GET/POST /api/v1/proveedores`, `GET/PUT/DELETE /api/v1/proveedores/{id}`.
+- **Kardex y Movimientos**: `GET/POST /api/v1/movimientos`, `GET /api/v1/movimientos/{id}` (transaccional atómico con ajuste automático de stock).
+- **CRUD Lotes**: `GET/POST /api/v1/lotes`, `GET/PUT/DELETE /api/v1/lotes/{id}`.
+- **CRUD Recetas**: `GET/POST /api/v1/recetas`, `GET/PUT/DELETE /api/v1/recetas/{id}`.
+
+Consulta la guía completa de consumo en [`documentacion/api_rest_endpoints.md`](file:///c:/Sistema%20Dee%20Inventario/SISTEMA-INVENTARIOS/ANTI-SISTEMA-INVENTARIOS-2/documentacion/api_rest_endpoints.md) y la especificación OpenAPI en [`documentacion/openapi_sistema_inventarios.yaml`](file:///c:/Sistema%20Dee%20Inventario/SISTEMA-INVENTARIOS/ANTI-SISTEMA-INVENTARIOS-2/documentacion/openapi_sistema_inventarios.yaml).
+
+---
+
 ## 🗄️ Control de Versiones de Base de Datos con Liquibase
 
 El proyecto incluye soporte nativo para **Liquibase** en la carpeta `database/liquibase/`:

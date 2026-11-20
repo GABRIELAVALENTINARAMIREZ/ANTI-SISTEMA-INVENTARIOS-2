@@ -20,5 +20,6 @@
     <include file="changelogs/12-create-notificaciones-table.xml" relativeToChangelogFile="true"/>
     <include file="changelogs/13-create-auditoria-table.xml" relativeToChangelogFile="true"/>
     <include file="changelogs/14-initial-seed-data.xml" relativeToChangelogFile="true"/>
+    <include file="changelogs/15-create-personal-access-tokens-table.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

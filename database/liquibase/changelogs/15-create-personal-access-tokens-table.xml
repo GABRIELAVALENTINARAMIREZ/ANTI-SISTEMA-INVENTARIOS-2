@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="15-create-personal-access-tokens-table" author="gvalen">
+        <createTable tableName="personal_access_tokens">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="id_usuario" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_token_usuario" references="usuarios(id_usuario)"/>
+            </column>
+            <column name="nombre" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="token" type="VARCHAR(64)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="habilidades" type="TEXT"/>
+            <column name="ultimo_uso" type="DATETIME"/>
+            <column name="expira_en" type="DATETIME"/>
+            <column name="creado_en" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+        <createIndex tableName="personal_access_tokens" indexName="idx_token_usuario">
+            <column name="id_usuario"/>
+        </createIndex>
+        <createIndex tableName="personal_access_tokens" indexName="idx_token_hash">
+            <column name="token"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

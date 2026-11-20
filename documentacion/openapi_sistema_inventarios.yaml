@@ -1,0 +1,290 @@
+openapi: 3.0.3
+info:
+  title: API REST del Sistema de Inventarios GAMA (FastStock)
+  description: >
+    API RESTful de nivel empresarial para el control de insumos, proveedores,
+    kardex de movimientos, recetas culinarias y trazabilidad de lotes en restaurantes.
+    Construida sobre Laravel 10 / PHP 8.2 y MySQL (XAMPP).
+  version: 1.0.0
+  contact:
+    name: Equipo de Desarrollo GAMA
+    email: soporte@inventariosgama.com
+servers:
+  - url: http://localhost:8000/api/v1
+    description: Servidor de Desarrollo Local (XAMPP / Artisan)
+
+tags:
+  - name: Autenticación
+    description: Gestión de sesiones y emisión de tokens de acceso Bearer
+  - name: Productos
+    description: Catálogo y existencias de materias primas e insumos
+  - name: Categorías
+    description: Clasificación de productos
+  - name: Proveedores
+    description: Directorio comercial de proveedores
+  - name: Movimientos (Kardex)
+    description: Entradas, salidas, mermas y ajustes de inventario
+  - name: Lotes
+    description: Control de caducidad y trazabilidad de lotes
+  - name: Recetas
+    description: Escandallos culinarios y descarga automática por preparación
+
+paths:
+  /auth/login:
+    post:
+      tags: [Autenticación]
+      summary: Iniciar sesión y obtener token Bearer
+      description: Valida credenciales contra MySQL y retorna un token criptográfico seguro de 64 caracteres.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [identificador, password]
+              properties:
+                identificador:
+                  type: string
+                  example: cmendoza
+                  description: Usuario o correo electrónico
+                password:
+                  type: string
+                  format: password
+                  example: Admin123*
+                dispositivo:
+                  type: string
+                  example: Postman Client
+      responses:
+        '200':
+          description: Autenticación exitosa
+        '401':
+          description: Credenciales inválidas
+        '422':
+          description: Error de validación de campos
+
+  /auth/logout:
+    post:
+      tags: [Autenticación]
+      summary: Cerrar sesión
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Token revocado exitosamente
+        '401':
+          description: No autenticado
+
+  /auth/perfil:
+    get:
+      tags: [Autenticación]
+      summary: Perfil del usuario autenticado
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Datos del usuario y roles asignados
+
+  /productos:
+    get:
+      tags: [Productos]
+      summary: Listar productos con filtros y paginación
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: buscar
+          in: query
+          schema: { type: string }
+          description: Término de búsqueda por código o nombre
+        - name: id_categoria
+          in: query
+          schema: { type: integer }
+        - name: estado
+          in: query
+          schema: { type: string, enum: [disponible, bajo_stock, agotado] }
+        - name: por_pagina
+          in: query
+          schema: { type: integer, default: 20 }
+      responses:
+        '200':
+          description: Lista paginada de productos
+    post:
+      tags: [Productos]
+      summary: Crear un nuevo producto
+      security:
+        - BearerAuth: []
+      description: Requiere rol Administrador o Encargado de inventario.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductoInput'
+      responses:
+        '201':
+          description: Producto creado
+        '403':
+          description: Rol insuficiente
+        '422':
+          description: Datos inválidos o código duplicado
+
+  /productos/{id}:
+    get:
+      tags: [Productos]
+      summary: Obtener producto por ID
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Detalle del producto
+        '404':
+          description: Producto no encontrado
+    put:
+      tags: [Productos]
+      summary: Actualizar producto existente
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductoInput'
+      responses:
+        '200':
+          description: Producto actualizado
+        '404':
+          description: Producto no encontrado
+    delete:
+      tags: [Productos]
+      summary: Eliminar producto
+      security:
+        - BearerAuth: []
+      description: Exclusivo para rol Administrador. Falla con 409 si tiene movimientos vinculados.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Producto eliminado
+        '409':
+          description: Conflicto de integridad referencial
+
+  /movimientos:
+    get:
+      tags: [Movimientos (Kardex)]
+      summary: Listar historial de movimientos
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: tipo
+          in: query
+          schema: { type: string, enum: [entrada, salida] }
+        - name: subtipo
+          in: query
+          schema: { type: string }
+      responses:
+        '200':
+          description: Historial de movimientos
+    post:
+      tags: [Movimientos (Kardex)]
+      summary: Registrar movimiento atómico (actualiza existencias)
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MovimientoInput'
+      responses:
+        '201':
+          description: Movimiento registrado y stock actualizado
+        '422':
+          description: Error de validación o stock insuficiente
+
+  /lotes:
+    get:
+      tags: [Lotes]
+      summary: Consultar lotes y alertas de caducidad
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Listado de lotes
+    post:
+      tags: [Lotes]
+      summary: Registrar ingreso de lote
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoteInput'
+      responses:
+        '201':
+          description: Lote creado
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: Token
+
+  schemas:
+    ProductoInput:
+      type: object
+      required: [codigo, nombre, id_categoria, id_proveedor, cantidad, unidad_medida, stock_minimo, precio_compra]
+      properties:
+        codigo: { type: string, example: "PAN-004" }
+        nombre: { type: string, example: "Pan de hamburguesa ajonjolí" }
+        id_categoria: { type: integer, example: 2 }
+        id_proveedor: { type: integer, example: 2 }
+        id_ubicacion: { type: integer, example: 1 }
+        cantidad: { type: number, example: 100 }
+        unidad_medida: { type: string, example: "unidades" }
+        stock_minimo: { type: number, example: 30 }
+        precio_compra: { type: number, example: 1050 }
+
+    MovimientoInput:
+      type: object
+      required: [tipo, subtipo, detalles]
+      properties:
+        tipo: { type: string, enum: [entrada, salida], example: "salida" }
+        subtipo: { type: string, example: "Venta / Receta" }
+        id_proveedor: { type: integer, example: null }
+        observacion: { type: string, example: "Preparación de 10 recetas" }
+        detalles:
+          type: array
+          items:
+            type: object
+            required: [id_producto, cantidad, costo_unitario]
+            properties:
+              id_producto: { type: integer, example: 1 }
+              cantidad: { type: number, example: 10 }
+              costo_unitario: { type: number, example: 950 }
+
+    LoteInput:
+      type: object
+      required: [numero_lote, id_producto, cantidad, fecha_ingreso, fecha_vencimiento]
+      properties:
+        numero_lote: { type: string, example: "LOT-2026-080" }
+        id_producto: { type: integer, example: 2 }
+        cantidad: { type: number, example: 50 }
+        fecha_ingreso: { type: string, format: date, example: "2026-11-20" }
+        fecha_vencimiento: { type: string, format: date, example: "2026-12-05" }
+        id_ubicacion: { type: integer, example: 2 }
