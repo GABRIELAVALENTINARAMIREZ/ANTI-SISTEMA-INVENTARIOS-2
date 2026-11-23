@@ -9,7 +9,7 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        //
+        \Laravel\Sanctum\Sanctum::ignoreMigrations();
     }
 
     public function boot(): void

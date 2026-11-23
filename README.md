@@ -67,6 +67,22 @@ Crea la base de datos `sistema_inventarios` si aún no existe:
 ```
 Abre en tu navegador: [http://localhost:8000](http://localhost:8000).
 
+### 8. Ejecutar la Suite de Pruebas Automatizadas (PHPUnit)
+El proyecto cuenta con una suite completa de pruebas unitarias y de integración (13 pruebas, 67 aserciones) que validan autenticación, RBAC, validaciones de entrada y operaciones CRUD:
+```powershell
+& "C:\xampp\php\php.exe" vendor\bin\phpunit
+```
+
+---
+
+## 🔑 Credenciales de Prueba (Sembradas en la Base de Datos)
+
+| Rol | Usuario | Correo Electrónico | Contraseña | Capacidades |
+| :--- | :--- | :--- | :--- | :--- |
+| **Administrador** | `cmendoza` | `camila.mendoza@gama.com.co` | `Admin123*` | Control total, CRUD en todos los módulos, borrado de entidades, auditoría |
+| **Encargado de inventario** | `jvargas` | `julian.vargas@gama.com.co` | `Inventario123*` | Crear y editar productos, categorías, proveedores, lotes y movimientos; sin permiso de borrado |
+| **Empleado** | `mrojas` | `mateo.rojas@gama.com.co` | `Empleado123*` | Consulta de productos, recetas, lotes y registro de consumo operativo diario |
+
 ---
 
 ## 🔒 Seguridad de la Base de Datos y Principio de Mínimo Privilegio
@@ -141,8 +157,11 @@ Consulta la documentación detallada en [`documentacion/guia_liquibase.md`](file
 
 ---
 
-## 🌿 Flujo de Ramas Git
+## 🌿 Flujo y Organización de Ramas Git
 
-- `main`: Rama de producción (protegida, no tocar en esta fase).
-- `qa`: Rama de control de calidad y pruebas.
-- `dev`: Rama activa de desarrollo (donde residen todas las confirmaciones actuales).
+El repositorio está estructurado bajo las siguientes 4 ramas estratégicas:
+
+- **`main`**: Contiene exclusivamente la versión lista para producción que el instructor debe revisar. Incluye el proyecto 100% funcional, configurado y validado.
+- **`dev`**: Rama activa de desarrollo donde reside todo el código fuente del sistema, controladores, modelos, migraciones, scripts de base de datos y la suite completa de pruebas PHPUnit.
+- **`qa`**: Rama dedicada a los controles de calidad tanto de la aplicación como de la documentación. Contiene el plan de pruebas, checklists de calidad, resultados de ejecución y el informe de hallazgos y correcciones.
+- **`documentacion`**: Rama enfocada en los artefactos de diseño y especificación, incluyendo la Especificación de Requerimientos de Software (SRS), la documentación detallada de la API RESTful v1, OpenAPI/Swagger y los CRUD.

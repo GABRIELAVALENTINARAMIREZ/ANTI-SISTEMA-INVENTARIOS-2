@@ -1,0 +1,25 @@
+PHPUnit 10.5.67 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.2.12
+Configuration: C:\Sistema Dee Inventario\SISTEMA-INVENTARIOS\ANTI-SISTEMA-INVENTARIOS-2\phpunit.xml
+
+.............                                                     13 / 13 (100%)
+
+Time: 00:02.404, Memory: 32.00 MB
+
+Detalle de pruebas ejecutadas:
+[PASS] Tests\Feature\AuthApiTest::test_login_exitoso_genera_token_bearer
+[PASS] Tests\Feature\AuthApiTest::test_login_fallido_con_clave_invalida
+[PASS] Tests\Feature\AuthApiTest::test_acceso_denegado_sin_token
+[PASS] Tests\Feature\AuthApiTest::test_consulta_perfil_con_token_valido
+[PASS] Tests\Feature\AuthApiTest::test_logout_revoca_token_y_bloquea_reuso
+[PASS] Tests\Feature\ProductCrudApiTest::test_validacion_campos_requeridos
+[PASS] Tests\Feature\ProductCrudApiTest::test_ciclo_crud_completo_producto
+[PASS] Tests\Feature\ProductCrudApiTest::test_proteccion_integridad_referencial_al_eliminar
+[PASS] Tests\Feature\RbacApiTest::test_empleado_puede_leer_pero_no_crear_productos
+[PASS] Tests\Feature\RbacApiTest::test_encargado_inventario_no_puede_eliminar_productos
+[PASS] Tests\Feature\RbacApiTest::test_administrador_tiene_permiso_para_eliminar
+[PASS] Tests\Unit\UserModelTest::test_usuario_verificacion_de_roles
+[PASS] Tests\Unit\UserModelTest::test_creacion_de_token_seguro
+
+OK (13 tests, 67 assertions)
