@@ -1,0 +1,393 @@
+/* ==========================================================================
+   GAMA FastStock - Design System & Visual Migration Stylesheet
+   Adaptado a partir de la plantilla editorial 'Fonts In Use'
+   Preservando al 100% la paleta de colores oficial del proyecto GAMA
+   ========================================================================== */
+
+/* 1. FUENTES DE LA PLANTILLA */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,400;0,700;1,700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+:root {
+    /* --- Tipografías (Plantilla) --- */
+    --font-ui: 'BentonSansRE', 'Source Sans 3', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-display: 'RelayCond', 'Roboto Condensed', ui-sans-serif, system-ui, sans-serif;
+
+    /* --- Escala Tipográfica (Plantilla) --- */
+    --text-caption: 10px;
+    --leading-caption: 1.2;
+    --text-body-sm: 12px;
+    --leading-body-sm: 1.25;
+    --text-body: 14px;
+    --leading-body: 1.35;
+    --text-body-lg: 16px;
+    --leading-body-lg: 1.25;
+    --text-accent: 18px;
+    --text-display: 32px;
+    --text-display-lg: 36px;
+
+    /* --- Pesos de Fuente (Plantilla) --- */
+    --font-weight-regular: 400;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    /* --- Escala de Espaciado (Plantilla: Base 6px) --- */
+    --spacing-unit: 6px;
+    --spacing-5: 5px;
+    --spacing-7: 7px;
+    --spacing-8: 8px;
+    --spacing-10: 10px;
+    --spacing-20: 20px;
+    --spacing-30: 30px;
+
+    /* --- Radios de Borde (Plantilla: Flat / Sharp) --- */
+    --radius-cards: 0px;
+    --radius-inputs: 2px;
+    --radius-buttons: 2px;
+    --radius-badges: 2px;
+    --radius-stamps: 2px;
+
+    /* --- Elevación (Plantilla: Flat by conviction) --- */
+    --elevation-shadow: none;
+
+    /* --- Paleta de Colores Oficial del Proyecto (INMUTABLE) --- */
+    --gama-primary: #E63946;
+    --gama-primary-hover: #d62839;
+    --gama-dark: #1D3557;
+    --gama-sidebar-bg: #111417;
+    --gama-light: #F8F9FA;
+    --gama-accent: #FFB703;
+    --gama-orange: #FF6B35;
+    --gama-success: #16A34A;
+    --gama-warning: #D97706;
+    --gama-info: #2563EB;
+    --gama-cyan: #0891B2;
+    --gama-purple: #7C3AED;
+
+    /* Tonalidades estructurales y neutras de la aplicación */
+    --gama-bg-canvas: #f8fafc;
+    --gama-surface-white: #ffffff;
+    --gama-border-hairline: #e2e8f0;
+    --gama-border-strong: #0f172a;
+    --gama-text-main: #0f172a;
+    --gama-text-muted: #64748b;
+    --gama-table-stripe: #f1f5f9;
+}
+
+/* 2. REGLAS BASE & RESET */
+body {
+    font-family: var(--font-ui);
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+    color: var(--gama-text-main);
+    background-color: var(--gama-bg-canvas);
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, .masthead-title, .display-num {
+    font-family: var(--font-display);
+    letter-spacing: 0.01em;
+}
+
+/* 3. ESTRUCTURA DE LAYOUT Y MASTHEAD */
+.sidebar {
+    background: var(--gama-sidebar-bg) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar .brand-masthead {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    padding: var(--spacing-20) var(--spacing-20) var(--spacing-10) var(--spacing-20);
+}
+
+.sidebar .brand-wordmark {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.0;
+    color: #ffffff;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.sidebar .brand-tagline {
+    font-family: var(--font-ui);
+    font-size: var(--text-caption);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 4px;
+}
+
+.sidebar .nav-link {
+    font-family: var(--font-ui);
+    font-size: var(--text-body-sm);
+    color: #94a3b8 !important;
+    border-radius: var(--radius-buttons);
+    padding: 7px 12px;
+    margin: 2px 10px;
+    transition: background-color 0.15s ease, color 0.15s ease;
+    border-left: 2px solid transparent;
+}
+
+.sidebar .nav-link:hover {
+    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+.sidebar .nav-link.active {
+    color: #ffffff !important;
+    background-color: var(--gama-primary) !important;
+    border-left: 2px solid var(--gama-accent);
+    font-weight: var(--font-weight-bold);
+}
+
+.sidebar .nav-link i {
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+/* Top Navbar / Masthead Header */
+.top-navbar {
+    background-color: var(--gama-surface-white);
+    border: 1px solid var(--gama-border-hairline) !important;
+    border-radius: var(--radius-cards) !important;
+    box-shadow: none !important;
+    padding: 10px 18px !important;
+}
+
+.page-headline {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--gama-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin: 0;
+}
+
+/* 4. COMPONENTES: TARJETAS (CARDS) - RADIUS 0px, FLAT SHADOW */
+.card {
+    border-radius: var(--radius-cards) !important;
+    box-shadow: none !important;
+    border: 1px solid var(--gama-border-hairline) !important;
+    background-color: var(--gama-surface-white);
+}
+
+.card.shadow-sm,
+.card-stat {
+    border-radius: var(--radius-cards) !important;
+    box-shadow: none !important;
+    border: 1px solid var(--gama-border-hairline) !important;
+    transition: border-color 0.15s ease;
+}
+
+.card-stat:hover {
+    transform: none !important;
+    box-shadow: none !important;
+    border-color: var(--gama-border-strong) !important;
+}
+
+.card-header {
+    background-color: var(--gama-surface-white) !important;
+    border-bottom: 1px solid var(--gama-border-hairline) !important;
+    border-radius: 0 !important;
+    padding: 12px 18px !important;
+}
+
+.card-header h6 {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.card-footer {
+    border-top: 1px solid var(--gama-border-hairline) !important;
+    border-radius: 0 !important;
+    background-color: var(--gama-surface-white) !important;
+}
+
+/* 5. TIPOGRAFÍA NUMÉRICA EDITORIAL EN MÉTRICAS */
+.stat-metric-number {
+    font-family: var(--font-display);
+    font-size: var(--text-display);
+    font-weight: 700;
+    line-height: 1.0;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.stat-metric-label {
+    font-family: var(--font-ui);
+    font-size: var(--text-caption);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--gama-text-muted);
+}
+
+/* 6. BOTONES (BUTTONS) - RADIUS 2px, COMPACT */
+.btn {
+    border-radius: var(--radius-buttons) !important;
+    font-family: var(--font-ui);
+    font-size: var(--text-body-sm);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.02em;
+    padding: 6px 14px;
+    box-shadow: none !important;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.btn-sm {
+    padding: 4px 10px !important;
+    font-size: 11px !important;
+}
+
+.btn-primary {
+    background-color: var(--gama-dark) !important;
+    border-color: var(--gama-dark) !important;
+    color: #ffffff !important;
+}
+
+.btn-primary:hover {
+    background-color: var(--gama-primary) !important;
+    border-color: var(--gama-primary) !important;
+}
+
+.btn-outline-danger {
+    color: var(--gama-primary) !important;
+    border-color: var(--gama-primary) !important;
+}
+
+.btn-outline-danger:hover {
+    background-color: var(--gama-primary) !important;
+    color: #ffffff !important;
+}
+
+.btn-outline-primary {
+    color: var(--gama-dark) !important;
+    border-color: var(--gama-dark) !important;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--gama-dark) !important;
+    color: #ffffff !important;
+}
+
+/* 7. FORMULARIOS, INPUTS Y SELECTS - RADIUS 2px, HAIRLINE BORDER */
+.form-control,
+.form-select,
+.input-group-text {
+    border-radius: var(--radius-inputs) !important;
+    border: 1px solid var(--gama-border-subtle);
+    font-family: var(--font-ui);
+    font-size: var(--text-body);
+    padding: 7px 12px;
+    box-shadow: none !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--gama-dark) !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.input-group-text {
+    background-color: #f8fafc !important;
+    border-right: none;
+    font-size: 13px;
+    color: var(--gama-text-muted);
+}
+
+.input-group .form-control {
+    border-left: none;
+}
+
+/* 8. BADGES Y ETIQUETAS - RADIUS 2px, SHARP, COMPACT */
+.badge {
+    border-radius: var(--radius-badges) !important;
+    font-family: var(--font-ui);
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 4px 8px !important;
+}
+
+/* 9. TABLAS ESTILO EDITORIAL / SPECIMEN SHEET */
+.table {
+    font-family: var(--font-ui);
+    font-size: 13px;
+    margin-bottom: 0;
+}
+
+.table thead th {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    background-color: #f8fafc !important;
+    color: var(--gama-text-muted);
+    border-bottom: 2px solid var(--gama-border-hairline) !important;
+    border-top: none;
+    padding: 10px 14px;
+}
+
+.table tbody td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--gama-border-hairline);
+    vertical-align: middle;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(226, 232, 240, 0.4);
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: var(--gama-table-stripe);
+}
+
+/* 10. ESTAMPAS DE AVATARES E ÍCONOS (SPECIMEN STAMPS) */
+.specimen-stamp-box {
+    border-radius: var(--radius-stamps) !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-avatar-stamp {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-stamps) !important;
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--gama-primary);
+    color: #ffffff;
+}
+
+/* 11. BORDES Y SEPARADORES HAIRLINE */
+.hairline-divider {
+    border-top: 1px solid var(--gama-border-hairline);
+    margin: var(--spacing-20) 0;
+}
+
+/* 12. RESPONSIVIDAD Y AJUSTES MÓVILES */
+@media (max-width: 768px) {
+    .page-headline {
+        font-size: 18px;
+    }
+    .top-navbar {
+        padding: 8px 12px !important;
+    }
+    .stat-metric-number {
+        font-size: 26px;
+    }
+}

@@ -4,14 +4,14 @@
 @section('page_header', 'Trazabilidad y Fechas de Vencimiento de Lotes')
 
 @section('content')
-<div class="card shadow-sm border-0">
-    <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
-        <h6 class="mb-0 fw-bold"><i class="bi bi-calendar-check me-2 text-danger"></i>Lotes Registrados</h6>
+<div class="card">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+        <h6 class="mb-0"><i class="bi bi-calendar-check me-2 text-danger"></i>Lotes Registrados</h6>
         <span class="badge bg-secondary">{{ $lotes->count() }} lotes</span>
     </div>
     <div class="table-responsive">
         <table class="table table-hover align-middle mb-0">
-            <thead class="table-light">
+            <thead>
                 <tr>
                     <th>Nº Lote</th>
                     <th>Producto</th>
@@ -25,12 +25,14 @@
             <tbody>
                 @forelse($lotes as $l)
                 <tr>
-                    <td><code>{{ $l->numero_lote }}</code></td>
-                    <td><strong>{{ $l->producto?->nombre }}</strong></td>
-                    <td class="small">{{ $l->ubicacion?->nombre ?? 'N/A' }}</td>
-                    <td class="fw-semibold">{{ $l->cantidad }} {{ $l->producto?->unidad_medida }}</td>
-                    <td class="small">{{ $l->fecha_ingreso ? $l->fecha_ingreso->format('d/m/Y') : '' }}</td>
-                    <td class="small">{{ $l->fecha_vencimiento ? $l->fecha_vencimiento->format('d/m/Y') : '' }}</td>
+                    <td><code style="font-size: 12px; background-color: var(--gama-bg-canvas); padding: 2px 6px; border-radius: var(--radius-badges); border: 1px solid var(--gama-border-hairline);">{{ $l->numero_lote }}</code></td>
+                    <td><strong style="font-size: 14px;">{{ $l->producto?->nombre }}</strong></td>
+                    <td class="text-muted" style="font-size: 12px;">{{ $l->ubicacion?->nombre ?? 'N/A' }}</td>
+                    <td class="fw-bold" style="font-family: var(--font-display); font-size: 14px;">
+                        {{ $l->cantidad }} <span class="fw-normal text-muted" style="font-family: var(--font-ui); font-size: 11px;">{{ $l->producto?->unidad_medida }}</span>
+                    </td>
+                    <td class="text-muted" style="font-size: 12px;">{{ $l->fecha_ingreso ? $l->fecha_ingreso->format('d/m/Y') : '' }}</td>
+                    <td class="text-muted" style="font-size: 12px;">{{ $l->fecha_vencimiento ? $l->fecha_vencimiento->format('d/m/Y') : '' }}</td>
                     <td>
                         @php $estado = $l->estado; @endphp
                         @if($estado == 'vencido')

@@ -4,14 +4,14 @@
 @section('page_header', 'Historial de Entradas, Salidas y Mermas')
 
 @section('content')
-<div class="card shadow-sm border-0">
-    <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
-        <h6 class="mb-0 fw-bold"><i class="bi bi-arrow-left-right me-2 text-danger"></i>Registro de Kardex</h6>
+<div class="card">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+        <h6 class="mb-0"><i class="bi bi-arrow-left-right me-2 text-danger"></i>Registro de Kardex</h6>
         <span class="badge bg-secondary">{{ $movimientos->count() }} operaciones</span>
     </div>
     <div class="table-responsive">
         <table class="table table-hover align-middle mb-0">
-            <thead class="table-light">
+            <thead>
                 <tr>
                     <th>ID</th>
                     <th>Fecha</th>
@@ -26,8 +26,8 @@
             <tbody>
                 @forelse($movimientos as $m)
                 <tr>
-                    <td><code>#{{ $m->id_movimiento }}</code></td>
-                    <td class="small">{{ $m->fecha ? $m->fecha->format('d/m/Y H:i') : '' }}</td>
+                    <td><code style="font-size: 12px; background-color: var(--gama-bg-canvas); padding: 2px 6px; border-radius: var(--radius-badges); border: 1px solid var(--gama-border-hairline);">#{{ $m->id_movimiento }}</code></td>
+                    <td class="text-muted" style="font-size: 12px;">{{ $m->fecha ? $m->fecha->format('d/m/Y H:i') : '' }}</td>
                     <td>
                         @if($m->tipo == 'entrada')
                             <span class="badge bg-success-subtle text-success border border-success-subtle">Entrada</span>
@@ -35,11 +35,11 @@
                             <span class="badge bg-danger-subtle text-danger border border-danger-subtle">Salida</span>
                         @endif
                     </td>
-                    <td><strong>{{ $m->subtipo }}</strong></td>
-                    <td class="small">{{ $m->proveedor?->nombre ?? 'Uso Interno' }}</td>
-                    <td class="small">{{ $m->usuario?->nombre }}</td>
-                    <td class="small text-muted">{{ $m->observacion }}</td>
-                    <td class="text-end fw-bold">${{ number_format($m->total_cop, 0, ',', '.') }}</td>
+                    <td><strong style="font-size: 13px;">{{ $m->subtipo }}</strong></td>
+                    <td class="text-muted" style="font-size: 12px;">{{ $m->proveedor?->nombre ?? 'Uso Interno' }}</td>
+                    <td class="text-muted" style="font-size: 12px;">{{ $m->usuario?->nombre }}</td>
+                    <td class="text-muted" style="font-size: 12px;">{{ $m->observacion }}</td>
+                    <td class="text-end fw-bold" style="font-family: var(--font-display); font-size: 15px;">${{ number_format($m->total_cop, 0, ',', '.') }}</td>
                 </tr>
                 @empty
                 <tr>
